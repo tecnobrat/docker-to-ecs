@@ -19,4 +19,4 @@ compose["services"].each do |service_name, service|
   compose["services"][service_name] = service
 end
 
-File.open('docker-compose-ecs.yml', 'w') {|f| f.write d.to_yaml }
+File.open('docker-compose-ecs.yml', 'w') {|f| f.write compose.to_yaml }
