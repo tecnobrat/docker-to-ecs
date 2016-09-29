@@ -10,10 +10,12 @@ compose["services"].each do |service_name, service|
   if service.delete("build")
     service["image"] = image_name
   end
-  service["environment"] << "SERVICE_9393_CHECK_INTERVAL=15s"
-  service["environment"] << "SERVICE_9393_CHECK_TCP=true"
-  service["environment"] << "SERVICE_9393_NAME=#{build_name}"
-  service["environment"] << "SERVICE_9393_TAGS=urlprefix-#{build_name}.peer.articulate.zone/"
+  if service_name == "app"
+    service["environment"] << "SERVICE_9393_CHECK_INTERVAL=15s"
+    service["environment"] << "SERVICE_9393_CHECK_TCP=true"
+    service["environment"] << "SERVICE_9393_NAME=#{build_name}"
+    service["environment"] << "SERVICE_9393_TAGS=urlprefix-#{build_name}.peer.articulate.zone/"
+  end
   compose["services"][service_name] = service
 end
 
