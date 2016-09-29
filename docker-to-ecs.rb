@@ -1,4 +1,4 @@
-#!/bin/env ruby
+#!/usr/bin/ruby
 require 'yaml'
 
 image_name = ARGV[0]
