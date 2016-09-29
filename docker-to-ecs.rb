@@ -1,11 +1,15 @@
 #!/bin/env ruby
 require 'yaml'
 
-build_name = ARGV[0]
+image_name = ARGV[0]
+build_name = ARGV[1]
 
 compose = YAML.load_file('docker-compose.yml')
 compose["services"].each do |service_name, service|
   service.delete("labels")
+  if service.delete("build")
+    service["image"] = image_name
+  end
   service["environment"] << "SERVICE_9393_CHECK_INTERVAL=15s"
   service["environment"] << "SERVICE_9393_CHECK_TCP=true"
   service["environment"] << "SERVICE_9393_NAME=#{build_name}"
